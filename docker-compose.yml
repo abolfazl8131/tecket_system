@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=ticket
+      - POSTGRES_USER=ticket_admin
+      - POSTGRES_PASSWORD=81318131
+
+  web:
+    build: .
+    command: sh -c "python3 manage.py runserver 0.0.0.0:8080 && python3 manage.py migrate"
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/code
+
+    depends_on:
+      - db
+     
+      
+ 
+
+
